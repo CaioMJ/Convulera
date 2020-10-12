@@ -92,8 +92,6 @@ instr 3 ;Convolution
 //CHECK IF IR IS MONO OR STEREO AND CONVOLVES
     if giChannels == 1 then
         aConvolve pconvolve aIn, gSfilepath, iPartitionSize
-            
-        aConvolve delay aConvolve, iPartitionSize/sr
         aIn delay aIn, iPartitionSize/sr
      
         aOut ntrpol aIn,aConvolve , kDryWet  
@@ -102,10 +100,7 @@ instr 3 ;Convolution
         outs aOut * kVolume, aOut * kVolume
             
     elseif giChannels== 2 then
-        aConvolveL, aConvolveR pconvolve aIn, gSfilepath, iPartitionSize
-            
-        aConvolveL delay aConvolveL, iPartitionSize/sr
-        aConvolveR delay aConvolveR, iPartitionSize/sr
+        aConvolveL, aConvolveR pconvolve aIn, gSfilepath, iPartitionSize           
         aIn delay aIn, iPartitionSize/sr
         
         aOutL ntrpol aIn, aConvolveL * 0.1, kDryWet
