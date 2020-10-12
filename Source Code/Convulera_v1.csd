@@ -97,8 +97,9 @@ instr 3 ;Convolution
         aIn delay aIn, iPartitionSize/sr
      
         aOut ntrpol aIn,aConvolve , kDryWet  
-           
-        outs aOut * kVolume * 0.1, aOut * kVolume * 0.1
+        aOut clip aOut, 0, 1, 0.9
+        
+        outs aOut * kVolume, aOut * kVolume
             
     elseif giChannels== 2 then
         aConvolveL, aConvolveR pconvolve aIn, gSfilepath, iPartitionSize
@@ -109,6 +110,9 @@ instr 3 ;Convolution
         
         aOutL ntrpol aIn, aConvolveL * 0.1, kDryWet
         aOutR ntrpol aIn, aConvolveR * 0.1, kDryWet    
+        
+        aOutL clip aOutL, 0, 1, 0.9
+        aOutR clip aOutR, 0, 1, 0.9
         
         outs aOutL * kVolume, aOutR * kVolume 
     endif
